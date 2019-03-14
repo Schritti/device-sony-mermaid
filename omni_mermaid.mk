@@ -1,4 +1,3 @@
-#
 # Copyright 2019 The Android Open Source Project
 #
 # Licensed under the Apache License, Version 2.0 (the "License");
@@ -12,7 +11,23 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
-#
 
-add_lunch_combo omni_mermaid-eng
-add_lunch_combo omni_mermaid-userdebug
+# Bootanimation
+TARGET_BOOTANIMATION_SIZE := 1080p
+
+# Get the prebuilt list of APNs
+$(call inherit-product, vendor/omni/config/gsm.mk)
+
+# Inherit device parts
+# TODO: Assume DSDS
+$(call inherit-product, device/sony/mermaid/aosp_i4213.mk)
+
+# Override Product Name
+PRODUCT_NAME := omni_mermaid
+PRODUCT_MODEL := Xperia 10 Plus
+
+# Assert ota packages to be equal to ro.product.device or ro.build.product:
+TARGET_OTA_ASSERT_DEVICE := none
+
+# Inherit rom parts
+$(call inherit-product, device/sony/common/omni.mk)
